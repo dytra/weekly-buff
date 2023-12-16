@@ -13,6 +13,7 @@ import {
 } from "./ui/dialog";
 import RadioSelect, { RadioItem } from "./RadioSelect";
 import { useState } from "react";
+import Footer from "./Footer";
 // import useLocalStorage from "react-storage-helper";
 
 const MainApp = () => {
@@ -56,6 +57,7 @@ const MainApp = () => {
           />
         )}
       </div>
+      <Footer />
       {/* <div className="flex gap-4">
         <a className="text-blue-500 hover:underline" href="#" rel="ugc">
           Previous Weeks
