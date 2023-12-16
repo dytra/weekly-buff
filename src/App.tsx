@@ -3,7 +3,7 @@ import useLocalStorage from "react-storage-helper";
 import { ThemeProvider } from "./components/theme-provider";
 import MainApp from "./components/MainApp";
 
-type WeekType = "technical" | "marketing";
+
 function App() {
   //
   // const [weekType, setWeekType] = useState(
@@ -11,9 +11,9 @@ function App() {
   // );
   // const [startDate, setStartDate] = useState(new Date());
   // const endDate = addDays(new Date(startDate), 7);
-  const [currentWeekType, setCurrentWeekType] =
-    useLocalStorage<WeekType>("currentWeekType");
-  console.log("cur bro ", currentWeekType);
+  // const [currentWeekType, setCurrentWeekType] =
+  //   useLocalStorage<WeekType>("currentWeekType");
+  // console.log("cur bro ", currentWeekType);
 
   // const handleButtonClick = (type: string) => {
   //   setWeekType(type);
@@ -26,7 +26,7 @@ function App() {
   // const currentDateString = format(new Date(), "MMMM d, yyyy");
 
   useEffect(() => {
-    if (!currentWeekType) setCurrentWeekType("technical");
+    // if (!currentWeekType) setCurrentWeekType("technical");
   }, []);
 
   return (
