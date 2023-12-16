@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { format, addDays, isAfter } from "date-fns";
 import useLocalStorage from "react-storage-helper";
 import { Button } from "./components/ui/button";
