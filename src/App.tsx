@@ -7,6 +7,7 @@ import MainApp from "./components/MainApp";
 
 type WeekType = "technical" | "marketing";
 function App() {
+  //
   const [weekType, setWeekType] = useState(
     localStorage.getItem("weekType") || "technical"
   );
