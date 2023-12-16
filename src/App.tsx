@@ -1,33 +1,29 @@
-import { useState, useEffect } from "react";
-import { format, addDays, isAfter } from "date-fns";
+import { useEffect } from "react";
 import useLocalStorage from "react-storage-helper";
-import { Button } from "./components/ui/button";
 import { ThemeProvider } from "./components/theme-provider";
 import MainApp from "./components/MainApp";
 
 type WeekType = "technical" | "marketing";
 function App() {
   //
-  const [weekType, setWeekType] = useState(
-    localStorage.getItem("weekType") || "technical"
-  );
-  const [startDate, setStartDate] = useState(new Date());
-  const endDate = addDays(new Date(startDate), 7);
+  // const [weekType, setWeekType] = useState(
+  //   localStorage.getItem("weekType") || "technical"
+  // );
+  // const [startDate, setStartDate] = useState(new Date());
+  // const endDate = addDays(new Date(startDate), 7);
   const [currentWeekType, setCurrentWeekType] =
     useLocalStorage<WeekType>("currentWeekType");
   console.log("cur bro ", currentWeekType);
 
-  const handleButtonClick = (type: string) => {
-    // if (weekType !== type) {
-    setWeekType(type);
-    setStartDate(new Date());
-    localStorage.setItem("weekType", type);
-    localStorage.setItem("startDate", new Date().toISOString());
-    // }
-  };
+  // const handleButtonClick = (type: string) => {
+  //   setWeekType(type);
+  //   setStartDate(new Date());
+  //   localStorage.setItem("weekType", type);
+  //   localStorage.setItem("startDate", new Date().toISOString());
+  // };
 
   // const isTechnicalWeek = weekType === "technical";
-  const currentDateString = format(new Date(), "MMMM d, yyyy");
+  // const currentDateString = format(new Date(), "MMMM d, yyyy");
 
   useEffect(() => {
     if (!currentWeekType) setCurrentWeekType("technical");
