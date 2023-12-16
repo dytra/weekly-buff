@@ -3,7 +3,7 @@ interface SpacerProps {
 }
 const Spacer: React.FC<SpacerProps> = ({ className }) => {
   return <div 
-  className="h-3"
+  className={`h-3 ${className}`}
   ></div>;
 };
 
