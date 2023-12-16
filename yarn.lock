@@ -2001,10 +2001,10 @@ react-remove-scroll@2.5.5:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-storage-helper@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.npmjs.org/react-storage-helper/-/react-storage-helper-1.0.14.tgz"
-  integrity sha512-p9HVtuPEeaUFuBj0+jZoSe3HfMbFnclP2RmvjLA4EI7gm90PbxZdB/RDj4Wjm2j0DsBEn0cBkMaxghY97uqCQQ==
+react-storage-helper@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/react-storage-helper/-/react-storage-helper-1.0.15.tgz#075c8e915576683edda1e7c75af3e5f26796407a"
+  integrity sha512-LsxTaNlbTYWYN8RswfCoDOQCHwt/9c7I9CJEmaYMOBlTu/mlpNl1u2uomGsf9G7WEaLwuEjP8qyZ4bMGlsqUbg==
 
 react-style-singleton@^2.2.1:
   version "2.2.1"
