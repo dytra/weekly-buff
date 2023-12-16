@@ -1,8 +1,6 @@
 import { useEffect } from "react";
-import useLocalStorage from "react-storage-helper";
 import { ThemeProvider } from "./components/theme-provider";
 import MainApp from "./components/MainApp";
-
 
 function App() {
   //
@@ -54,6 +52,7 @@ function App() {
             </p>
           )}
         </div> */}
+        {/* <Footer /> */}
       </div>
     </ThemeProvider>
   );
