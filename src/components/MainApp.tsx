@@ -117,7 +117,7 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
     if (value) setWeekType(value);
   };
   return (
-    <div className="px-3 py-3 text-sm text-center">
+    <div className="p-6 text-sm text-center">
       <p>Are you a Solo Founder and ready to start being productive?</p>
       <p>Let's pick your weekly buff</p>
       <Spacer />
