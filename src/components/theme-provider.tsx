@@ -52,6 +52,10 @@ export function ThemeProvider({
     theme,
     setTheme: (theme: Theme) => {
       localStorage.setItem(storageKey, theme)
+      const metaTag = document.querySelector('meta[name="color-scheme"]');
+      if (metaTag) {
+        metaTag.setAttribute("content", theme);
+      }
       setTheme(theme)
     },
   }

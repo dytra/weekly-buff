@@ -20,6 +20,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./components/ui/dialog";
+import ModalToggle from "./components/ModalToggle";
+import { Separator } from "./components/ui/separator";
+import Spacer from "./components/Spacer";
 
 function App() {
   //
@@ -89,11 +92,14 @@ const RightSheetMenu: React.FC = () => {
         </SheetTrigger>
         <SheetContent>
           <div className="flex flex-col h-full">
+            <ModalToggle />
+            <Spacer/>
+            <Separator />
             <Dialog>
               <DialogTrigger asChild>
                 <Button
                   variant={"outline"}
-                  className="mt-auto hover:bg-destructive"
+                  className="mt-auto hover:bg-destructive hover:text-white"
                 >
                   <i className="fa-solid fa-trash-can mr-3"></i>
                   Reset Data
