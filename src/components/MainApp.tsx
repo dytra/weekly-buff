@@ -36,7 +36,7 @@ const MainApp = () => {
         // src="/placeholder.svg?height=100&amp;width=100"
       ></span>
       <h1 className="text-4xl font-bold text-center mb-4">
-        What Week Is This?
+        Weekly Buff
       </h1>
       {!!currentWeekType && (
         <ActiveCard
