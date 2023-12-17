@@ -161,7 +161,7 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
   const dayName = initialDateTemp ? format(initialDateTemp, "EEEE") : "";
   const filled = weekTypeTemp && initialDateTemp;
   const handleChangeWeekType = ({ value }: { value?: string }) => {
-    console.log("value ", value);
+    // console.log("value ", value);
     if (value) setWeekTypeTemp(value as WeekType);
   };
   const handleChangeInitialDate = (date: Date) => {
