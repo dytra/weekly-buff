@@ -168,9 +168,12 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
     setInitialDateTemp(date);
   };
   return (
-    <div className="p-6 text-sm text-center">
-      <p>Are you a Solo Founder and ready to start being productive?</p>
-      <p>Let's pick your weekly buff</p>
+    <div className="p-6 text-sm max-w-md text-center">
+      <p>Are you a Solo Founder and struggling to manage between coding and marketing tasks?
+      Let me, help you boost your productivity by getting our weekly buff.
+      </p>
+      {/* <p>Let me, help you boost your productivity by getting our weekly buff.</p> */}
+      {/* <p>Let's pick your weekly buff</p> */}
       <Spacer />
       <Dialog>
         <DialogTrigger asChild>
