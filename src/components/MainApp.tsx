@@ -85,7 +85,7 @@ const MainApp = () => {
         />
       )}
       {!currentWeekType && (
-        <NewComerBox
+        <HeroBox
           currentweekType={currentWeekType}
           onConfirmWeekType={handleConfirmWeekType}
         />
@@ -142,14 +142,14 @@ const ActiveCard: React.FC<ActiveCardProps> = ({
   );
 };
 
-interface NewComerBoxProps {
+interface HeroBoxProps {
   currentweekType?: string;
   onConfirmWeekType?: (params: {
     weekType: WeekType;
     initialDate: Date;
   }) => void;
 }
-const NewComerBox: React.FC<NewComerBoxProps> = ({
+const HeroBox: React.FC<HeroBoxProps> = ({
   // currentweekType,
   onConfirmWeekType,
 }) => {
