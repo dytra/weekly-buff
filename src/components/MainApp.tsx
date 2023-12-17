@@ -11,12 +11,16 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import RadioSelect, { RadioItem } from "./RadioSelect";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./Footer";
 import useLocalStorage from "react-storage-helper";
 import { DatePicker } from "./ui/datepicker";
 import { format } from "date-fns";
-import { capFirst } from "@/lib/utils";
+import {
+  capFirst,
+  getTotalWeekPassed,
+  getWeekTypeByTotalWeeks,
+} from "@/lib/utils";
 // import useLocalStorage from "react-storage-helper";
 
 const MainApp = () => {
@@ -24,15 +28,48 @@ const MainApp = () => {
     "currentWeekType"
     // "technical"
   );
-  const [, setInitialWeekType] = useLocalStorage<WeekType>("initialWeekType");
-  const weekTypeString =
-    currentWeekType === "marketing" ? "Marketing" : "Technical";
+  const [actualWeekType, setActualWeekType] = useState<WeekType>();
+
+  const [initialWeekType, setInitialWeekType] =
+    useLocalStorage<WeekType>("initialWeekType");
+  const [initialDate, setInitialDate] = useLocalStorage<number>("initialDate");
+  const [totalWeekPassed, setTotalWeekPassed] = useState(0);
+
   // console.log("currentWeekTypexu", currentWeekType)
 
-  const handleConfirmWeekType = (value: string) => {
-    setCurrentWeekType(value as WeekType);
-    setInitialWeekType(value as WeekType);
+  const handleConfirmWeekType = ({
+    weekType,
+    initialDate,
+  }: {
+    weekType: WeekType;
+    initialDate: Date;
+  }) => {
+    setCurrentWeekType(weekType);
+    setInitialWeekType(weekType);
+    const timestamp = initialDate.getTime();
+    setInitialDate(timestamp);
   };
+
+  useEffect(() => {
+    if (!initialWeekType) return;
+    let totalWeekPassed;
+    const initialDateStorage = localStorage.getItem("initialDate");
+    const initialDateObj = initialDateStorage
+      ? new Date(parseInt(initialDateStorage))
+      : null;
+    if (initialDateObj) {
+      totalWeekPassed = getTotalWeekPassed(initialDateObj, new Date());
+      // totalWeekPassed = 0;
+      const calculatedWeekType = getWeekTypeByTotalWeeks(
+        initialWeekType,
+        totalWeekPassed
+      );
+      setTotalWeekPassed(totalWeekPassed)
+      setActualWeekType(calculatedWeekType)
+      // console.log("calculated ",calculatedWeekType);
+    }
+  }, [initialWeekType]);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-h-[100svh] py-12 px-4 sm:px-6 lg:px-8">
       <span
@@ -42,8 +79,9 @@ const MainApp = () => {
       <h1 className="text-4xl font-bold text-center mb-4">Weekly Buff</h1>
       {!!currentWeekType && (
         <ActiveCard
-          currentWeekType={currentWeekType}
-          weekTypeString={weekTypeString}
+          // currentWeekType={currentWeekType}
+          currentWeekType={actualWeekType}
+          totalWeekPassed={totalWeekPassed}
         />
       )}
       {!currentWeekType && (
@@ -66,13 +104,15 @@ const MainApp = () => {
 };
 
 type ActiveCardProps = {
-  weekTypeString: string;
-  currentWeekType: WeekType;
+  currentWeekType?: WeekType;
+  totalWeekPassed?:number
 };
 const ActiveCard: React.FC<ActiveCardProps> = ({
-  weekTypeString,
   currentWeekType,
+  totalWeekPassed,
 }) => {
+  const weekTypeString =
+  currentWeekType === "marketing" ? "Marketing" : "Technical";
   return (
     <div className="rounded-lg bg-card text-card-foreground border shadow-sm mb-8 w-full max-w-md mx-auto">
       <div className="flex-col space-y-1.5 p-6 flex items-center justify-between">
@@ -82,6 +122,11 @@ const ActiveCard: React.FC<ActiveCardProps> = ({
           color="blue"
         >
           {weekTypeString} Week
+        </div>
+        <Spacer className="h-1"/>
+        <div>
+          <p className="font-bold text-5xl text-center mb-3">{totalWeekPassed}</p>
+          <p className="text-sm">Your Week Streak</p>
         </div>
       </div>
       <div className="p-6 text-center">
@@ -99,25 +144,28 @@ const ActiveCard: React.FC<ActiveCardProps> = ({
 
 interface NewComerBoxProps {
   currentweekType?: string;
-  onConfirmWeekType?: (value: string) => void;
+  onConfirmWeekType?: (params: {
+    weekType: WeekType;
+    initialDate: Date;
+  }) => void;
 }
 const NewComerBox: React.FC<NewComerBoxProps> = ({
   // currentweekType,
   onConfirmWeekType,
 }) => {
-  const [weekType, setWeekType] = useState<string | undefined>();
-  const [initialDate, setInitialDate] = useState<Date | null>();
-  const formattedInitDate = initialDate
-    ? format(initialDate, "MMMM do, yyyy")
+  const [weekTypeTemp, setWeekTypeTemp] = useState<WeekType | undefined>();
+  const [initialDateTemp, setInitialDateTemp] = useState<Date | null>();
+  const formattedInitDate = initialDateTemp
+    ? format(initialDateTemp, "MMMM do, yyyy")
     : "";
-  const dayName = initialDate ? format(initialDate, "EEEE") : "";
-  const filled = weekType && initialDate;
+  const dayName = initialDateTemp ? format(initialDateTemp, "EEEE") : "";
+  const filled = weekTypeTemp && initialDateTemp;
   const handleChangeWeekType = ({ value }: { value?: string }) => {
     console.log("value ", value);
-    if (value) setWeekType(value);
+    if (value) setWeekTypeTemp(value as WeekType);
   };
   const handleChangeInitialDate = (date: Date) => {
-    setInitialDate(date);
+    setInitialDateTemp(date);
   };
   return (
     <div className="p-6 text-sm text-center">
@@ -139,7 +187,7 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
           <div>
             <RadioSelect
               options={weekTypeOptions}
-              value={weekType}
+              value={weekTypeTemp}
               onChange={handleChangeWeekType}
             />
             <DatePicker
@@ -150,10 +198,10 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
           {filled && (
             <>
               <p>
-                This week You will get a <strong>{capFirst(weekType)}</strong>{" "}
-                buff, with the initial date of{" "}
-                <strong>{formattedInitDate}</strong>. And the buff cycle will
-                change every <strong>{dayName}</strong>.
+                This week You will get a{" "}
+                <strong>{capFirst(weekTypeTemp)}</strong> buff, with the initial
+                date of <strong>{formattedInitDate}</strong>. And the buff cycle
+                will change every <strong>{dayName}</strong>.
               </p>
             </>
           )}
@@ -162,15 +210,17 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
             <Button
               onClick={() => {
                 if (onConfirmWeekType && filled) {
-                  onConfirmWeekType(weekType);
+                  onConfirmWeekType({
+                    weekType: weekTypeTemp,
+                    initialDate: initialDateTemp,
+                  });
 
                   // Get the timestamp (number of milliseconds since the Unix epoch)
-                  const timestamp = initialDate.getTime();
 
-                  localStorage.setItem(
-                    "initialDate",
-                   timestamp?.toString()
-                  );
+                  // localStorage.setItem(
+                  //   "initialDate",
+                  //  timestamp?.toString()
+                  // );
                 }
               }}
               disabled={!filled}
