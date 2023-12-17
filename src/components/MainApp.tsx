@@ -38,26 +38,18 @@ const MainApp = () => {
       <h1 className="text-4xl font-bold text-center mb-4">
         What Week Is This?
       </h1>
-      <div
-        className={cn(
-          "rounded-lg  bg-card text-card-foreground shadow-sm mb-8 w-full max-w-md mx-auto",
-          { border: currentWeekType }
-        )}
-        data-v0-t="card"
-      >
-        {!!currentWeekType && (
-          <ActiveBox
-            currentWeekType={currentWeekType}
-            weekTypeString={weekTypeString}
-          />
-        )}
-        {!currentWeekType && (
-          <NewComerBox
-            currentweekType={currentWeekType}
-            onConfirmWeekType={handleConfirmWeekType}
-          />
-        )}
-      </div>
+      {!!currentWeekType && (
+        <ActiveCard
+          currentWeekType={currentWeekType}
+          weekTypeString={weekTypeString}
+        />
+      )}
+      {!currentWeekType && (
+        <NewComerBox
+          currentweekType={currentWeekType}
+          onConfirmWeekType={handleConfirmWeekType}
+        />
+      )}
       <Footer />
       {/* <div className="flex gap-4">
         <a className="text-blue-500 hover:underline" href="#" rel="ugc">
@@ -71,16 +63,16 @@ const MainApp = () => {
   );
 };
 
-type ActiveBoxProps = {
+type ActiveCardProps = {
   weekTypeString: string;
   currentWeekType: WeekType;
 };
-const ActiveBox: React.FC<ActiveBoxProps> = ({
+const ActiveCard: React.FC<ActiveCardProps> = ({
   weekTypeString,
   currentWeekType,
 }) => {
   return (
-    <>
+    <div className="rounded-lg bg-card text-card-foreground border shadow-sm mb-8 w-full max-w-md mx-auto">
       <div className="flex-col space-y-1.5 p-6 flex items-center justify-between">
         <h3 className="tracking-tight text-lg font-semibold">Current Week</h3>
         <div
@@ -99,7 +91,7 @@ const ActiveBox: React.FC<ActiveBoxProps> = ({
             "This week is a marketing week. Focus on enhancing your creative skills."}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 
