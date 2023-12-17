@@ -1,6 +1,25 @@
 import { useEffect } from "react";
 import { ThemeProvider } from "./components/theme-provider";
 import MainApp from "./components/MainApp";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./components/ui/sheet";
+import { Button } from "./components/ui/button";
+import { Dialog } from "@radix-ui/react-dialog";
+import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./components/ui/dialog";
 
 function App() {
   //
@@ -30,6 +49,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="App">
+        <RightSheetMenu />
         <MainApp />
         {/* <div className="container w-full flex flex-col">
           <h1>Business Week Type</h1>
@@ -57,5 +77,64 @@ function App() {
     </ThemeProvider>
   );
 }
+
+const RightSheetMenu: React.FC = () => {
+  return (
+    <div className="absolute right-0 p-5">
+      <Sheet>
+        <SheetTrigger asChild>
+          <button>
+            <i className="fa-solid fa-bars text-2xl"></i>
+          </button>
+        </SheetTrigger>
+        <SheetContent>
+          <div className="flex flex-col h-full">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className="mt-auto hover:bg-destructive"
+                >
+                  <i className="fa-solid fa-trash-can mr-3"></i>
+                  Reset Data
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Are you you want to reset the data ?
+                  </DialogTitle>
+                  <DialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    the data from your browser.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex gap-3">
+                  <SheetClose className="flex-1" asChild>
+                    <DialogClose asChild>
+                      <Button
+                        onClick={() => {
+                          window.localStorage.removeItem("currentWeekType");
+                          window.localStorage.removeItem("initialWeekType");
+                          window.localStorage.removeItem("initialDate");
+                          window.location.reload();
+                        }}
+                      >
+                        Yes
+                      </Button>
+                    </DialogClose>
+                  </SheetClose>
+                  <DialogClose className="flex-1" asChild>
+                    <Button variant={"link"}>Cancel</Button>
+                  </DialogClose>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  );
+};
 
 export default App;
