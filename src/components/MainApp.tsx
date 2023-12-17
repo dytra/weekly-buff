@@ -64,8 +64,8 @@ const MainApp = () => {
         initialWeekType,
         totalWeekPassed
       );
-      setTotalWeekPassed(totalWeekPassed)
-      setActualWeekType(calculatedWeekType)
+      setTotalWeekPassed(totalWeekPassed);
+      setActualWeekType(calculatedWeekType);
       // console.log("calculated ",calculatedWeekType);
     }
   }, [initialWeekType]);
@@ -105,14 +105,14 @@ const MainApp = () => {
 
 type ActiveCardProps = {
   currentWeekType?: WeekType;
-  totalWeekPassed?:number
+  totalWeekPassed?: number;
 };
 const ActiveCard: React.FC<ActiveCardProps> = ({
   currentWeekType,
   totalWeekPassed,
 }) => {
   const weekTypeString =
-  currentWeekType === "marketing" ? "Marketing" : "Technical";
+    currentWeekType === "marketing" ? "Marketing" : "Technical";
   return (
     <div className="rounded-lg bg-card text-card-foreground border shadow-sm mb-8 w-full max-w-md mx-auto">
       <div className="flex-col space-y-1.5 p-6 flex items-center justify-between">
@@ -123,9 +123,11 @@ const ActiveCard: React.FC<ActiveCardProps> = ({
         >
           {weekTypeString} Week
         </div>
-        <Spacer className="h-1"/>
+        <Spacer className="h-1" />
         <div>
-          <p className="font-bold text-5xl text-center mb-3">{totalWeekPassed}</p>
+          <p className="font-bold text-5xl text-center mb-3">
+            {totalWeekPassed}
+          </p>
           <p className="text-sm">Your Week Streak</p>
         </div>
       </div>
@@ -169,15 +171,20 @@ const HeroBox: React.FC<HeroBoxProps> = ({
   };
   return (
     <div className="p-6 text-sm max-w-md text-center">
-      <p>Are you a Solo Founder and struggling to manage between coding and marketing tasks?
-      Let me, help you boost your productivity by getting our weekly buff.
+      <p>
+        Are you a Solo Founder and struggling to manage between coding and
+        marketing tasks? Let me, help you boost your productivity by getting our
+        weekly buff.
       </p>
       {/* <p>Let me, help you boost your productivity by getting our weekly buff.</p> */}
       {/* <p>Let's pick your weekly buff</p> */}
       <Spacer />
       <Dialog>
         <DialogTrigger asChild>
-          <Button>GET STARTED</Button>
+          <div>
+            <Button className="px-7">GET STARTED</Button>
+            <Button variant={"link"}>WAIT WHAT?</Button>
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -242,12 +249,12 @@ const weekTypeOptions: RadioItem[] = [
   {
     key: "technical",
     label: "Technical",
-    iconClass:"fa-laptop-code"
+    iconClass: "fa-laptop-code",
   },
   {
     key: "marketing",
     label: "Marketing",
-    iconClass:"fa-bullhorn"
+    iconClass: "fa-bullhorn",
   },
 ];
 
