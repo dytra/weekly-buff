@@ -32,7 +32,7 @@ const MainApp = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <span
-        className="relative flex shrink-0 overflow-hidden rounded-full w-24 h-24 mb-8"
+        className="relative flex shrink-0 overflow-hidden rounded-full w-24 mb-8"
         // src="/placeholder.svg?height=100&amp;width=100"
       ></span>
       <h1 className="text-4xl font-bold text-center mb-4">
