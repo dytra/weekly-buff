@@ -32,7 +32,7 @@ const MainApp = () => {
     setCurrentWeekType(value as WeekType);
   };
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100svh] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col items-center justify-center min-h-screen min-h-[100svh] py-12 px-4 sm:px-6 lg:px-8">
       <span
         className="relative flex shrink-0 overflow-hidden rounded-full w-24 mb-8"
         // src="/placeholder.svg?height=100&amp;width=100"
