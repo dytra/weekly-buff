@@ -16,7 +16,8 @@ export function capFirst(str: string) {
 
 export function getTotalWeekPassed(initialDate: Date, currentDate: Date):number {
   const timeDiff = currentDate.getTime() - initialDate.getTime();
-  const weeksPassed = Math.floor(timeDiff / (7 * 24 * 60 * 60 * 1000));
+  let weeksPassed = Math.floor(timeDiff / (7 * 24 * 60 * 60 * 1000));
+  weeksPassed = weeksPassed < 0 ? 0 : weeksPassed;
   return weeksPassed;
 
 }
