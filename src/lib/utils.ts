@@ -14,13 +14,19 @@ export function capFirst(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+export function getTotalWeekPassed(initialDate: Date, currentDate: Date):number {
+  const timeDiff = currentDate.getTime() - initialDate.getTime();
+  const weeksPassed = Math.floor(timeDiff / (7 * 24 * 60 * 60 * 1000));
+  return weeksPassed;
+
+}
 
 export function getCurrentWeekType(initialDate: Date, initialWeekType: WeekType, currentDate: Date): WeekType {
   const timeDiff = currentDate.getTime() - initialDate.getTime();
   const weeksPassed = Math.floor(timeDiff / (7 * 24 * 60 * 60 * 1000));
 
-  const cycle = ["technical", "marketing"];
-  const currentWeekIndex = weeksPassed % cycle.length;
+  const weekTypes: WeekType[] = [initialWeekType, "marketing", "technical"];
+  const currentWeekIndex = weeksPassed % weekTypes.length;
 
-  return cycle[currentWeekIndex] as WeekType;
+  return weekTypes[currentWeekIndex];
 }
