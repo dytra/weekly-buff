@@ -30,3 +30,10 @@ export function getCurrentWeekType(initialDate: Date, initialWeekType: WeekType,
 
   return weekTypes[currentWeekIndex];
 }
+
+export function getWeekTypeByTotalWeeks(initialWeekType: WeekType, totalWeeksPassed: number): WeekType {
+  const weekTypes: WeekType[] = [initialWeekType, "marketing", "technical"];
+  const currentWeekIndex = totalWeeksPassed % weekTypes.length;
+
+  return weekTypes[currentWeekIndex];
+}
