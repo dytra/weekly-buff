@@ -24,12 +24,14 @@ const MainApp = () => {
     "currentWeekType"
     // "technical"
   );
+  const [, setInitialWeekType] = useLocalStorage<WeekType>("initialWeekType");
   const weekTypeString =
     currentWeekType === "marketing" ? "Marketing" : "Technical";
   // console.log("currentWeekTypexu", currentWeekType)
 
   const handleConfirmWeekType = (value: string) => {
     setCurrentWeekType(value as WeekType);
+    setInitialWeekType(value as WeekType);
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-h-[100svh] py-12 px-4 sm:px-6 lg:px-8">
@@ -159,7 +161,17 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
           <DialogTrigger asChild>
             <Button
               onClick={() => {
-                if (onConfirmWeekType && weekType) onConfirmWeekType(weekType);
+                if (onConfirmWeekType && filled) {
+                  onConfirmWeekType(weekType);
+
+                  // Get the timestamp (number of milliseconds since the Unix epoch)
+                  const timestamp = initialDate.getTime();
+
+                  localStorage.setItem(
+                    "initialDate",
+                   timestamp?.toString()
+                  );
+                }
               }}
               disabled={!filled}
             >
