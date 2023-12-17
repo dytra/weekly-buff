@@ -14,10 +14,11 @@ import {
 } from "@/components/ui/popover";
 interface DatePickerProps {
   placeholder?: string;
+  date?: Date;
   onChange?:(date:Date) => void;
 }
-export const DatePicker: React.FC<DatePickerProps> = ({ placeholder,onChange }) => {
-  const [date, setDate] = React.useState<Date>();
+export const DatePicker: React.FC<DatePickerProps> = ({ date,placeholder,onChange }) => {
+  const [dateTemp, setDateTemp] = React.useState<Date | undefined>(date ?? undefined);
   const firstDayOfWeek = startOfWeek(new Date(), { weekStartsOn: 0 });
   const endDayOfWeek = addDays(firstDayOfWeek, 6);
   return (
@@ -27,12 +28,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({ placeholder,onChange }) 
           variant={"outline"}
           className={cn(
             "w-[240px] justify-start text-left font-normal w-full",
-            !date && "text-muted-foreground"
+            !dateTemp && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? (
-            format(date, "PPP")
+          {dateTemp ? (
+            format(dateTemp, "PPP")
           ) : (
             <span>{placeholder ?? "Pick a Date"}</span>
           )}
@@ -41,8 +42,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({ placeholder,onChange }) 
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={setDate}
+          selected={dateTemp}
+          onSelect={setDateTemp}
           fromDate={firstDayOfWeek}
           toDate={endDayOfWeek}
           onDayClick={(date) => {

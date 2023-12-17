@@ -154,7 +154,7 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
   onConfirmWeekType,
 }) => {
   const [weekTypeTemp, setWeekTypeTemp] = useState<WeekType | undefined>();
-  const [initialDateTemp, setInitialDateTemp] = useState<Date | null>();
+  const [initialDateTemp, setInitialDateTemp] = useState<Date | undefined>();
   const formattedInitDate = initialDateTemp
     ? format(initialDateTemp, "MMMM do, yyyy")
     : "";
@@ -193,6 +193,7 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
             <DatePicker
               placeholder="Pick Your Initial Date"
               onChange={handleChangeInitialDate}
+              date={initialDateTemp}
             />
           </div>
           {filled && (
