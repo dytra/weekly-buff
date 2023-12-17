@@ -14,6 +14,10 @@ import RadioSelect, { RadioItem } from "./RadioSelect";
 import { useState } from "react";
 import Footer from "./Footer";
 import useLocalStorage from "react-storage-helper";
+import { DatePicker } from "./ui/datepicker";
+import { Label } from "./ui/label";
+import { format } from "date-fns";
+import { capFirst } from "@/lib/utils";
 // import useLocalStorage from "react-storage-helper";
 
 const MainApp = () => {
@@ -34,9 +38,7 @@ const MainApp = () => {
         className="relative flex shrink-0 overflow-hidden rounded-full w-24 mb-8"
         // src="/placeholder.svg?height=100&amp;width=100"
       ></span>
-      <h1 className="text-4xl font-bold text-center mb-4">
-        Weekly Buff
-      </h1>
+      <h1 className="text-4xl font-bold text-center mb-4">Weekly Buff</h1>
       {!!currentWeekType && (
         <ActiveCard
           currentWeekType={currentWeekType}
@@ -103,9 +105,18 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
   onConfirmWeekType,
 }) => {
   const [weekType, setWeekType] = useState<string | undefined>();
+  const [initialDate, setInitialDate] = useState<Date | null>();
+  const formattedInitDate = initialDate
+    ? format(initialDate, "MMMM do, yyyy")
+    : "";
+  const dayName = initialDate ? format(initialDate, "EEEE") : "";
+  const filled = weekType && initialDate;
   const handleChangeWeekType = ({ value }: { value?: string }) => {
     console.log("value ", value);
     if (value) setWeekType(value);
+  };
+  const handleChangeInitialDate = (date: Date) => {
+    setInitialDate(date);
   };
   return (
     <div className="p-6 text-sm text-center">
@@ -130,12 +141,28 @@ const NewComerBox: React.FC<NewComerBoxProps> = ({
               value={weekType}
               onChange={handleChangeWeekType}
             />
+            <DatePicker
+              placeholder="Pick Your Initial Date"
+              onChange={handleChangeInitialDate}
+            />
           </div>
+          {filled && (
+            <>
+              <p>
+                This week You will get a <strong>{capFirst(weekType)}</strong>{" "}
+                buff, with the initial date of{" "}
+                <strong>{formattedInitDate}</strong>. And the buff cycle will
+                change every <strong>{dayName}</strong>.
+              </p>
+            </>
+          )}
+
           <DialogTrigger asChild>
             <Button
               onClick={() => {
                 if (onConfirmWeekType && weekType) onConfirmWeekType(weekType);
               }}
+              disabled={!filled}
             >
               CONFIRM
             </Button>
