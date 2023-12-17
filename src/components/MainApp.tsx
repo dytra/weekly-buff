@@ -15,7 +15,6 @@ import { useState } from "react";
 import Footer from "./Footer";
 import useLocalStorage from "react-storage-helper";
 import { DatePicker } from "./ui/datepicker";
-import { Label } from "./ui/label";
 import { format } from "date-fns";
 import { capFirst } from "@/lib/utils";
 // import useLocalStorage from "react-storage-helper";
