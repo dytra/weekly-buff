@@ -17,7 +17,7 @@ const RadioSelect: React.FC<RadioSelectProps> = ({
   onChange,
 }) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 mb-3">
       {options.map((option) => {
         const selected = option.key === value;
         return (
