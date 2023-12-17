@@ -10,6 +10,7 @@ export interface RadioSelectProps {
 export interface RadioItem {
   key: string;
   label: string;
+  iconClass?:string
 }
 const RadioSelect: React.FC<RadioSelectProps> = ({
   options,
@@ -34,7 +35,8 @@ const RadioSelect: React.FC<RadioSelectProps> = ({
               }
             )}
           >
-            <i className="fa-solid fa-laptop-code text-2xl"></i>
+            <i className={`fa-solid ${option?.iconClass ?? ""} text-2xl`}></i>
+            
             <Spacer />
             <span className={cn(
               {

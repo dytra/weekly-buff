@@ -238,10 +238,12 @@ const weekTypeOptions: RadioItem[] = [
   {
     key: "technical",
     label: "Technical",
+    iconClass:"fa-laptop-code"
   },
   {
     key: "marketing",
     label: "Marketing",
+    iconClass:"fa-bullhorn"
   },
 ];
 
