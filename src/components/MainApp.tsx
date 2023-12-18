@@ -183,16 +183,13 @@ const HeroBox: React.FC<HeroBoxProps> = ({
         <DialogTrigger asChild>
           <div>
             <Button className="px-7">GET STARTED</Button>
-            <Button variant={"link"}>WAIT WHAT?</Button>
+            {/* <Button variant={"link"}>WAIT WHAT?</Button> */}
           </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Choose your Weekly Buff</DialogTitle>
-            <DialogDescription>
-              For productivity purpose, this action currently cannot be undone.
-              Except you hack this app.
-            </DialogDescription>
+            <DialogDescription>Choose the buff for this week that you want to focus on.</DialogDescription>
           </DialogHeader>
           <div>
             <RadioSelect
@@ -212,7 +209,7 @@ const HeroBox: React.FC<HeroBoxProps> = ({
                 This week You will get a{" "}
                 <strong>{capFirst(weekTypeTemp)}</strong> buff, with the initial
                 date of <strong>{formattedInitDate}</strong>. And the buff cycle
-                will change every <strong>{dayName}</strong>.
+                will alternate between Technical and Marketing every <strong>{dayName}</strong>.
               </p>
             </>
           )}
